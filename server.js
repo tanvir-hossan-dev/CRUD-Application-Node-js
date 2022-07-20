@@ -1,7 +1,17 @@
+require("dotenv").config()
 const express = require("express")
-const mongooe = require("mongoose")
+const mongoose = require("mongoose")
+const todoHandelar = require("./routes/todoHandelar")
 
 const app = express()
+app.use(express.json())
+
+mongoose.connect(process.env.DB)
+  .then(()=>console.log("MongoDB Conected"))
+  .catch((e)=>console.log(e))
+
+
+app.use("/todo", todoHandelar)
 
 app.get("/",(req,res)=>{
     res.json({name : "Tanvir"})
